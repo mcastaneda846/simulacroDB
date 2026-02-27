@@ -6,7 +6,7 @@ const router = Router();
 router.post("/migrate", async (req, res) => {
   try {
     const result = await migration();
-    res.json(result);
+    res.status(200).json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({

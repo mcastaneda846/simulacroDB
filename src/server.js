@@ -12,7 +12,7 @@ async function startServer() {
 
     //conection Mongo
     await connectMongo();
-    await migration();
+    //await migration();
 
     app.listen(env.port, () => {
       console.log(`Server running on port ${env.port}`);

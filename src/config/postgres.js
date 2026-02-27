@@ -5,7 +5,7 @@ import { resolve } from "path";
 
 const { Pool } = pg;
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: env.postgresUri, //configuración para la url de la conexion
 });
 

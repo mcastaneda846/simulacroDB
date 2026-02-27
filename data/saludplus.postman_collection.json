@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "5e476434-7962-4378-863b-68825d586dd4",
+		"name": "saludplus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "52773221",
+		"_collection_link": "https://mcastaneda846-4874752.postman.co/workspace/d's-Workspace~af13e0e5-eaaa-44b2-81c4-6ac557073ee1/collection/52773221-5e476434-7962-4378-863b-68825d586dd4?action=share&source=collection_link&creator=52773221"
+	},
+	"item": [
+		{
+			"name": "migrate",
+			"item": [
+				{
+					"name": "migrate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/simulacro/migrate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"simulacro",
+								"migrate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctors",
+			"item": [
+				{
+					"name": "getDoctors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/doctors/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"doctors",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
