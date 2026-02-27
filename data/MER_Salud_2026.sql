@@ -1,4 +1,5 @@
-CREATE TABLE patients (
+-- TABLA PACIENTES
+CREATE TABLE IF NOT EXISTS patients (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
@@ -6,12 +7,14 @@ CREATE TABLE patients (
   address VARCHAR(255)
 );
 
-CREATE TABLE specialty (
+-- TABLA ESPECIALIDADES
+CREATE TABLE IF NOT EXISTS specialty (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE doctors (
+-- TABLA DOCTORES
+CREATE TABLE IF NOT EXISTS doctors (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
@@ -22,21 +25,24 @@ CREATE TABLE doctors (
     ON DELETE RESTRICT
 );
 
-CREATE TABLE insurances (
+-- TABLA ASEGURADORAS
+CREATE TABLE IF NOT EXISTS insurances (
   id SERIAL PRIMARY KEY,
-  name_provider VARCHAR(255) NOT NULL,
+  name_provider VARCHAR(255) NOT NULL UNIQUE,
   coverage_percentage DECIMAL(5,2) NOT NULL
     CHECK (coverage_percentage >= 0 AND coverage_percentage <= 100)
 );
 
-CREATE TABLE treatments (
+-- TABLA TRATAMIENTOS
+CREATE TABLE IF NOT EXISTS treatments (
   id SERIAL PRIMARY KEY,
   code VARCHAR(255) UNIQUE NOT NULL,
   description VARCHAR(255) NOT NULL,
   cost DECIMAL(10,2) NOT NULL CHECK (cost >= 0)
 );
 
-CREATE TABLE appointments (
+-- TABLA CITAS
+CREATE TABLE IF NOT EXISTS appointments (
   id SERIAL PRIMARY KEY,
   appointment_date DATE NOT NULL,
   amount_paid DECIMAL(10,2) NOT NULL CHECK (amount_paid >= 0),
