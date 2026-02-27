@@ -3,7 +3,7 @@ import pool from "../config/postgres.js";
 import { parse } from "csv-parse/sync";
 import { resolve } from "path";
 import { env } from "../config/env.js";
-import { PatientHistory } from "../models/PatientHistory.js";
+import { PatientHistory } from "../models/patientHistory.js";
 
 export async function migration(clearBefore = false) {
   const client = await pool.connect();
@@ -39,6 +39,7 @@ export async function migration(clearBefore = false) {
           row.patient_address,
         ],
       );
+
 
       let patientId;
       if (patientResult.rows.length > 0) {
@@ -132,9 +133,11 @@ export async function migration(clearBefore = false) {
 
       // 🔹 6. Insert appointment
       await client.query(
-        `INSERT INTO appointments (appointment_date, amount_paid, patient_id, doctor_id, insurance_id, treatment_id)
-         VALUES ($1, $2, $3, $4, $5, $6)`,
+        `INSERT INTO appointments (appointment_id, appointment_date, amount_paid, patient_id, doctor_id, insurance_id, treatment_id)
+         VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (appointment_id) DO NOTHING
+         `,
         [
+          row.appointment_id,
           row.appointment_date,
           row.amount_paid,
           patientId,
@@ -144,23 +147,29 @@ export async function migration(clearBefore = false) {
         ],
       );
       insertedAppointments++;
+      
 
       // 🔹 7. Update Mongo history
       await PatientHistory.updateOne(
         { patientEmail },
         {
           $setOnInsert: {
-            patientId,
             patientName: row.patient_name,
             patientEmail,
           },
           $push: {
             appointments: {
+              appointmentId: row.appointment_id,
+              date: row.appointment_date,
               doctorName: row.doctor_name,
+              doctorEmail: row.doctor_email,
               specialty: row.specialty,
-              appointmentDate: row.appointment_date,
-              status: row.status || "scheduled",
-              totalCost: row.treatment_cost,
+              treatmentCode: row.treatment_code,
+              treatmentDescription: row.treatment_description,
+              treatmentCost: row.treatment_cost,
+              insuranceProvider: row.insurance_provider,
+              coveragePercentage: row.coverage_percentage,
+              amountPaid : row.amount_paid
             },
           },
         },

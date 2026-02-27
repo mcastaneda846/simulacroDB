@@ -17,7 +17,8 @@ export async function createTables() {
     await client.query("BEGIN");
     // Leer archivo SQL
     const sqlPath = resolve(env.schemaSqlPath);
-    const sql = await readFile(sqlPath, "utf-8");
+    const sql = await readFile(sqlPath, "utf-8"); 
+      
 
     // script to create table patients
     await client.query(sql); // aca debo poner lo creado en sql.

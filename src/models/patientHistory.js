@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
-  appointmentId: Number,
+  appointmentId: String,
+  date: Date,
   doctorName: String,
+  doctorEmail: String,
   specialty: String,
-  appointmentDate: Date,
-  status: String,
-  totalCost: Number,
+  treatmentCode: String,
+  treatmentDescription: String,
+  treatmentCost: Number,
+  insuranceProvider: String,
+  coveragePercentage: Number,
+  amountPaid: Number
 });
 
 const patientHistorySchema = new mongoose.Schema({

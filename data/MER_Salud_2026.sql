@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS treatments (
 -- TABLA CITAS
 CREATE TABLE IF NOT EXISTS appointments (
   id SERIAL PRIMARY KEY,
+  appointment_id VARCHAR(20) NOT NULL UNIQUE,
   appointment_date DATE NOT NULL,
   amount_paid DECIMAL(10,2) NOT NULL CHECK (amount_paid >= 0),
   patient_id INTEGER NOT NULL,
